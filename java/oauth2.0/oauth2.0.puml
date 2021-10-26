@@ -8,5 +8,6 @@ autonumber
 授权Oauth2.0 --> 客户端: return Access Token
 
 客户端 -> 第三方平台: 发起Request+Access Token
-第三方平台 <-- 客户端: return response
+第三方平台 --> 客户端: return response
+
 @enduml
