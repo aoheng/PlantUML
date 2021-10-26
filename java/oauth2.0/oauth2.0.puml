@@ -1,0 +1,12 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+客户端 -> 授权Oauth2.0: 发起授权登录
+授权Oauth2.0 --> 客户端: return Authentication Code
+客户端 -> 授权Oauth2.0: Authentication Code&重定向URL
+授权Oauth2.0 --> 客户端: return Access Token
+
+客户端 -> 第三方平台: 发起Request+Access Token
+第三方平台 <-- 客户端: return response
+@enduml
