@@ -1,5 +1,5 @@
 @startuml
-participant participant as Foo
+participant 参与者 as Foo
 actor       角色       as Foo1
 boundary    边界    as Foo2
 control     控制     as Foo3
