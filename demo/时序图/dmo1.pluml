@@ -1,4 +1,5 @@
 @startuml
+skinparam responseMessageBelowArrow true
 participant 参与者 as Foo
 actor       角色       as Foo1
 boundary    边界    as Foo2
@@ -14,4 +15,5 @@ Foo -> Foo4 : To entity
 Foo -> Foo5 : To database
 Foo -> Foo6 : To collections
 Foo -> Foo7 : To queue
+Foo7 -> Foo : response queue
 @enduml

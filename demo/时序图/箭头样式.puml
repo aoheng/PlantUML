@@ -1,0 +1,19 @@
+@startuml
+autonumber
+@startuml
+Bob -[#blue]>x Alice :start
+Bob -> Alice 
+Alice -> Bob
+Bob -[#green]>> Alice
+Bob -\ Alice
+Bob \\- Alice
+Bob //-- Alice
+
+Bob ->o Alice
+Bob o\\-- Alice
+
+Bob <-> Alice
+Bob <->o Alice : end
+@enduml
+
+@enduml
