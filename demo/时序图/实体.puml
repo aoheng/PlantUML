@@ -1,4 +1,7 @@
 @startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
 skinparam responseMessageBelowArrow true
 participant 参与者 as Foo
 actor       角色       as Foo1
