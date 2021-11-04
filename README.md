@@ -1,7 +1,15 @@
-# PlantUML 简介
+# PlantUML
+
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](http://opensource.org/licenses/MIT)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/a466350665/smart-sso/pulls)
+[![GitHub stars](https://img.shields.io/github/stars/aoheng/PlantUML.svg?style=social&label=Stars)](https://github.com/aoheng/PlantUML)
+[![GitHub forks](https://img.shields.io/github/forks/aoheng/PlantUML.svg?style=social&label=Fork)](https://github.com/aoheng/PlantUML)
+
 ```
 PlantUML目录
-1.oauth2.0
+1.Demo各类图演示
+2.oauth2.0
+
 
 
 
