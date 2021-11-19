@@ -4,12 +4,15 @@ header 页头
 title 授权Oauth2.0时序图
 footer 页脚
 autonumber
-客户端 -> 授权Oauth2.0: 发起授权登录
-授权Oauth2.0 --> 客户端: return Authentication Code
-客户端 -> 授权Oauth2.0: Authentication Code&重定向URL
-授权Oauth2.0 --> 客户端: return Access Token
+客户端 -> Authorization2.0Server: 发起授权登录
+Authorization2.0Server--> 客户端: return Authentication Code
+客户端 -> Authorization2.0Server: Authentication Code&重定向URL
+Authorization2.0Server --> 客户端: return Access Token
 
 客户端 -> 第三方平台: 发起Request+Access Token
 第三方平台 --> 客户端: return response
+
+客户端 -> Authorization2.0Server: refresh_token
+Authorization2.0Server --> 客户端: return Access Token
 
 @enduml
