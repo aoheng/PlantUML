@@ -1,0 +1,14 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+title Android11机型过滤（回传）
+autonumber
+actor       客户端    as client
+
+client --> 归因Filter: 激活上报
+归因Filter--> 回传match: 归因匹配
+回传match -> 回传match: 匹配Android11
+回传match -> DB: 若命中，则保存DB
+回传match -> 媒体平台: 回传上报
+媒体平台 -> 回传match: return 结果
+@enduml
