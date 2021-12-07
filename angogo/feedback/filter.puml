@@ -7,8 +7,11 @@ actor       客户端    as client
 
 client --> 归因Filter: 激活上报
 归因Filter--> 回传match: 归因匹配
-回传match -> 回传match: 匹配Android11
-回传match -> DB: 若命中，则保存DB
+回传match -> 回传match: 激活过滤(略)
+回传match -> 回传match: 过滤匹配：Android11
+回传match -> Pika: 若命中，判断pika是否存在
+回传match -> DB: 不存在pika,保存DB
+回传match -> Pika: 保存pika
 回传match -> 媒体平台: 回传上报
 媒体平台 -> 回传match: return 结果
 @enduml
