@@ -1,0 +1,22 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+title 海外IP过滤
+autonumber
+actor       客户端    as client
+
+
+client -> 大数据: 上报
+大数据 -> 头条海外IP库: IP Request
+头条海外IP库 -->大数据: return IP结果
+大数据  ->大数据 :逻辑处理
+大数据 -> Redis: 海外IP保存redis,key=coid_ncoid_android
+
+client -> feedbackmatch: 激活上报（具体流程略）
+feedbackmatch --> Redis: 投放配置(海外IP),匹配海外IP
+Redis-> feedbackmatch: redis根据AndroidId匹配海外IP
+feedbackmatch -> 媒体平台: 回传上报
+媒体平台-> feedbackmatch: return result
+feedbackmatch ->DB : save feedback_log
+feedbackmatch --> Redis: save redis
+@enduml
