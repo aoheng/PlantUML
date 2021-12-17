@@ -4,19 +4,32 @@
 title 海外IP过滤
 autonumber
 actor       客户端    as client
-
+/'skinparam sequence {
+ParticipantBackgroundColor DeepSkyBlue
+}'/
 
 client -> 大数据: 上报
+activate 大数据
 大数据 -> 头条海外IP库: IP Request
+activate 头条海外IP库
 头条海外IP库 -->大数据: return IP结果
+deactivate 头条海外IP库
 大数据  ->大数据 :逻辑处理
 大数据 -> Redis: 海外IP保存redis,key=coid_ncoid_android
+deactivate 大数据
+
 
 client -> feedbackmatch: 激活上报（具体流程略）
+activate feedbackmatch
 feedbackmatch --> Redis: 投放配置(海外IP),匹配海外IP
+activate Redis
 Redis-> feedbackmatch: redis根据AndroidId匹配海外IP
+deactivate Redis
 feedbackmatch -> 媒体平台: 回传上报
-媒体平台-> feedbackmatch: return result
+activate 媒体平台
+媒体平台 --> feedbackmatch: return result
+deactivate 媒体平台
 feedbackmatch ->DB : save feedback_log
 feedbackmatch --> Redis: save redis
+deactivate feedbackmatch
 @enduml
