@@ -1,0 +1,21 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+title 投放渠道配置
+autonumber
+actor       actor    as client
+
+client -> 业务中台: add/update基础信息
+业务中台 -> 智投平台: RabbitMq同步基础信息
+activate 业务中台
+智投平台 --> 智投平台: add/update基础信息
+智投平台 --> 智投平台: 记录操作日志
+智投平台 --> 业务中台: ack确认
+deactivate 业务中台
+client --> 智投平台: 编辑渠道配置
+activate 智投平台
+智投平台 --> 智投平台: 更新渠道配置
+智投平台 --> 智投平台: 记录操作日志
+智投平台 --> client: return
+deactivate 智投平台
+@enduml
