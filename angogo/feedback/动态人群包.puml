@@ -1,0 +1,18 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+title 动态人群包（广点通）时序图
+autonumber
+
+feedback_third_api -> 腾讯广告平台: 发起授权（略）
+腾讯广告平台 --> feedback_third_api: return token&&refreshToken
+feedback_third_api -> 腾讯广告平台: 创建客户人群（略）
+腾讯广告平台 --> feedback_third_api: return 人群id
+xxl_job调度平台 --> feedback_third_api: 定时调度
+feedback_third_api ->feedback_third_api: 触发统计脚本，生成.txt文件
+feedback_third_api -> 腾讯广告平台: 上传客户人群数据文件（.txt文件）
+腾讯广告平台 --> feedback_third_api: return 数据文件id
+
+腾讯广告平台 ->腾讯广告平台: 授权给商务管家、广告主账号ID(页面操作)
+
+@enduml
