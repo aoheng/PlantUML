@@ -1,7 +1,7 @@
 # PlantUML
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](http://opensource.org/licenses/MIT)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/a466350665/smart-sso/pulls)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/aoheng/PlantUML/pulls)
 [![GitHub stars](https://img.shields.io/github/stars/aoheng/PlantUML.svg?style=social&label=Stars)](https://github.com/aoheng/PlantUML)
 [![GitHub forks](https://img.shields.io/github/forks/aoheng/PlantUML.svg?style=social&label=Fork)](https://github.com/aoheng/PlantUML)
 
