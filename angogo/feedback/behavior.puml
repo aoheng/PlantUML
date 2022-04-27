@@ -1,0 +1,38 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+title 关键行为（付费）流程图
+autonumber
+
+==发起激活==
+投放人员 -> 广告平台 : 设置投放点击监测链接
+广告平台 -> APP客户端: 下载APP
+广告平台 -> angogo回传服务: 透传点击记录
+APP客户端 -> angogo回传服务: 打开APP，激活上报
+angogo回传服务 ->angogo回传服务: 匹配点击记录
+note right
+以点击记录中渠道号投放配置为准（第3步），
+匹配激活回传模型（注：没点击记录不回传）
+end note
+angogo回传服务 --> 广告平台: 激活上报回传
+angogo回传服务 ->angogo回传服务: 保存激活记录
+
+/'newpage'/
+==发起付费==
+
+APP客户端 -> angogo产品后台: App发起付费(略)
+angogo产品后台 --> angogo回传服务: 付费队列
+note left
+设备信息、金额/分、订单号
+end note
+angogo回传服务 ->angogo回传服务: 查找激活记录（第6步）
+note left
+根据设备信息查找激活记录(7天内)，
+通过激活记录中的渠道号读取投放配置，
+大于设定最小付费金额即可回传
+end note
+angogo回传服务-->广告平台: 付费回传
+angogo回传服务->angogo回传服务:保存付费记录
+
+
+@enduml
