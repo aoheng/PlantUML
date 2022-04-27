@@ -3,6 +3,7 @@
 
 title 关键行为（Pay,Event,Bidding,Arpu）流程图
 autonumber
+actor 投放人员
 
 ==发起激活==
 投放人员 -> 广告平台 : 设置投放点击监测链接
