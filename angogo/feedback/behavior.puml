@@ -19,7 +19,7 @@ angogo回传服务 ->angogo回传服务: 保存激活记录
 angogo回传服务 ->BigData平台: 发送激活数据（队列）
 
 /'newpage'/
-==发起付费==
+==发起Pay付费行为==
 
 APP客户端 -> angogo产品后台: App发起付费(略)
 angogo产品后台 --> angogo回传服务: 付费队列
@@ -35,7 +35,7 @@ end note
 angogo回传服务-->广告平台: 付费回传
 angogo回传服务->angogo回传服务:保存付费记录
 
-==发起Event事件==
+==发起Event行为组合==
 BigData平台->BigData平台:kafka订阅神策事件
 BigData平台-->angogo回传服务:Event队列（报文来源第8步）
 angogo回传服务->angogo回传服务:匹配Event模型
@@ -47,8 +47,8 @@ end note
 angogo回传服务-->广告平台: 关键行为回传
 angogo回传服务->angogo回传服务:保存Event记录
 
-==发起Bidding事件==
-BigData平台->BigData平台:bidding脚本
+==发起Bidding结算价格==
+BigData平台->BigData平台:Bidding脚本
 BigData平台-->angogo回传服务:Bidding队列
 angogo回传服务->angogo回传服务:匹配Bidding模型
 note left
@@ -58,7 +58,7 @@ end note
 angogo回传服务-->广告平台: 关键行为回传
 angogo回传服务->angogo回传服务:保存Bidding记录
 
-==发起ARPU事件==
+==发起ARPU用户平均收入==
 BigData平台->BigData平台:ARPU脚本
 BigData平台-->angogo回传服务:Arpu队列
 angogo回传服务->angogo回传服务:匹配ARPU模型
