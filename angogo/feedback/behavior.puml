@@ -1,7 +1,7 @@
 @startuml
 'https://plantuml.com/sequence-diagram
 
-title 关键行为（付费）流程图
+title 关键行为（Pay,Event,Bidding,Arpu）流程图
 autonumber
 
 ==发起激活==
@@ -16,6 +16,7 @@ note right
 end note
 angogo回传服务 --> 广告平台: 激活上报回传
 angogo回传服务 ->angogo回传服务: 保存激活记录
+angogo回传服务 ->BigData平台: 发送激活数据（队列）
 
 /'newpage'/
 ==发起付费==
@@ -25,7 +26,7 @@ angogo产品后台 --> angogo回传服务: 付费队列
 note left
 设备信息、金额/分、订单号
 end note
-angogo回传服务 ->angogo回传服务: 匹配激活记录（第6步）
+angogo回传服务 ->angogo回传服务: 匹配激活记录（第7步）
 note left
 根据设备信息匹配激活记录，
 注：(7天内，没激活记录不回传)
@@ -34,7 +35,38 @@ end note
 angogo回传服务-->广告平台: 付费回传
 angogo回传服务->angogo回传服务:保存付费记录
 
+==发起Event事件==
+BigData平台->BigData平台:kafka订阅神策事件
+BigData平台-->angogo回传服务:Event队列（报文来源第8步）
+angogo回传服务->angogo回传服务:匹配Event模型
+note left
+报文中channel投放配置
+event=事件ID:事件名:属性值，
+事件组合匹配
+end note
+angogo回传服务-->广告平台: 关键行为回传
+angogo回传服务->angogo回传服务:保存Event记录
 
+==发起Bidding事件==
+BigData平台->BigData平台:bidding脚本
+BigData平台-->angogo回传服务:Bidding队列
+angogo回传服务->angogo回传服务:匹配Bidding模型
+note left
+报文中channel投放配置,
+bidding价格匹配
+end note
+angogo回传服务-->广告平台: 关键行为回传
+angogo回传服务->angogo回传服务:保存Bidding记录
 
+==发起ARPU事件==
+BigData平台->BigData平台:ARPU脚本
+BigData平台-->angogo回传服务:Arpu队列
+angogo回传服务->angogo回传服务:匹配ARPU模型
+note left
+报文中channel投放配置,
+ARPU阈值匹配
+end note
+angogo回传服务-->广告平台: 关键行为回传
+angogo回传服务->angogo回传服务:保存ARPU记录
 
 @enduml
