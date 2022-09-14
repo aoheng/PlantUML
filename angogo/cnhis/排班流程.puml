@@ -1,0 +1,23 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+title 排班优化流程图
+autonumber
+actor 医护人员
+
+==预约排班==
+医护人员 ->HCRM: 预约排班
+HCRM -> Producer: 批量分片排班
+note right
+如预约1000个排班，拆分为10个MQ，
+每个MQ100个排班
+end note
+Producer -> MQ: 发送MQ
+
+MQ -> Consumer: 消费MQ
+Consumer --> HCRM: 业务处理
+HCRM ->HCRM:线程池
+note right
+批量操作insert/update
+end note
+@enduml
