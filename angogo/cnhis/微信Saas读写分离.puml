@@ -1,0 +1,31 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+title 微信Saas读写分离优化方案
+autonumber
+
+wx -> setRpcContextAttach: 切库操作
+note right
+tc_datasource配置的数据源
+根据org_id维度切换93和66库
+end note
+setRpcContextAttach --> Mapper: 上下文传递93和66库
+Mapper -> Mapper: 切面切库
+note right
+Interceptor切面识别
+1.select(从库)
+2.insert(主库)
+3.update(主库)
+4.delete(主库)
+正则&算法匹配(支持开关)
+切换93和66的主库和从库
+end note
+Mapper -> DB66master库: insert/update/delete操作
+Mapper -> DB66slave库: select操作
+Mapper -> DB93master库: insert/update/delete操作
+Mapper -> DB93slave库: select操作
+DB66master库 -->wx:返回结果
+DB66slave库 -->wx:返回结果
+DB93master库 -->wx:返回结果
+DB93slave库 -->wx:返回结果
+@enduml
