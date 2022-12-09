@@ -1,0 +1,20 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+title CRM数据流转流程
+autonumber
+
+==360视图(业务)==
+HCRM -> IHO接口平台: API读取360视图等
+IHO接口平台 -> 集成平台ETL: API读取360视图等
+集成平台ETL ->集成平台ETL: SQL（his库/ho库等）
+集成平台ETL --> HCRM: return 360视图（体检/检查/诊疗...）
+==报表统计==
+集成平台ETL -> 云APISIX: （定时）统计报表清洗上报（A医院）
+集成平台ETL -> 云APISIX: （定时）统计报表清洗上报（B医院）
+云APISIX -> CRM服务: 网关(鉴权&限流)
+CRM服务 -> DB: 记录报表
+CRM服务 --> 集成平台ETL: return
+HCRM -> DB: 读取报表
+DB --> HCRM: return 统计报表
+
+@enduml
