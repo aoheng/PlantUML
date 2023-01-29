@@ -1,0 +1,15 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+title CDSS聚合交互
+autonumber
+
+业务A -> 坐标CDSS中心: 请求数据
+坐标CDSS中心 --> 坐标CDSS中心: 解析数据格式
+note right
+根据应用标识来源，完成第三方验证鉴权等
+兼容不同厂商鉴权，一期对接惠每科技
+end note
+坐标CDSS中心 ->第三方CDSS知识库: 请求数据
+第三方CDSS知识库 -> 坐标CDSS中心: 返回数据
+坐标CDSS中心 --> 坐标CDSS中心: 解析数据格式，返回特定数据格式
+@enduml
