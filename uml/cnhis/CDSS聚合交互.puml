@@ -1,29 +1,50 @@
 @startuml
 'https://plantuml.com/sequence-diagram
-title CDSS聚合交互
+title CDSS聚合BS交互
 autonumber
 
-==决策分析==
-业务A -> 坐标CDSS中心: 请求数据
-坐标CDSS中心 --> 坐标CDSS中心: 解析数据格式
+==决策分析前端初始化==
+业务系统A -> 坐标CDSS聚合服务: 发起初始化
+业务系统A -> 坐标SDK: 发起初始化
+坐标SDK -> 坐标CDSS聚合服务: 请求获取厂商信息
 note right
-根据应用标识来源，完成第三方验证鉴权等
+聚合服务对厂商信息统一管理，包含APPID，密钥等
+end note
+坐标SDK <-- 坐标CDSS聚合服务: 返回获取厂商信息
+note right
+根据应用标识来源，完成初始化，定义全局对象变量
 兼容不同厂商鉴权，一期对接惠每科技
 end note
-坐标CDSS中心 ->第三方CDSS知识库: 请求数据
-第三方CDSS知识库 -> 坐标CDSS中心: 返回数据
-坐标CDSS中心 --> 坐标CDSS中心: 解析数据格式，返回特定数据格式
-坐标CDSS中心 --> 业务A: 返回特定数据格式
+坐标SDK -> 坐标SDK:前端引入jssdk，页面初始化
+坐标SDK -> CDSS厂商SDK:初始化
+坐标SDK <-- CDSS厂商SDK:监听初始化
+业务系统A <-- 坐标SDK:返回初始化信息
+note right
+完成页面初始化，定义全局对象变量
+end note
+
+
+==决策分析前端API交互(重点)==
+业务系统A ->坐标SDK: 发起API请求(统一请求)
+坐标SDK ->坐标CDSS聚合服务: 数据格式转换请求
+坐标CDSS聚合服务 -->坐标SDK: 返回第三方格式数据封装
+note right
+由聚合服务对第三方厂商数据格式统一封装
+end note
+坐标SDK ->CDSS厂商SDK: 发起API请求
+坐标SDK <--CDSS厂商SDK: 监听回写数据
+坐标CDSS聚合服务 <- 坐标SDK:请求解析回写数据格式
+note right
+由聚合服务对第三方厂商数据格式统一解析，返回统一数据格式
+end note
+坐标CDSS聚合服务 --> 坐标SDK:返回统一数据格式
+业务系统A <-- 坐标SDK:返回特定数据格式
+
 
 ==数据采集==
-业务A-> 坐标CDSS中心: 数据上报，考虑ETL?
-坐标CDSS中心 --> 坐标CDSS中心: 解析数据格式，封装
-坐标CDSS中心 ->第三方CDSS知识库: 推送数据采集
-第三方CDSS知识库->坐标CDSS中心:返回结果
-坐标CDSS中心 --> 业务A: 返回特定数据格式
-
-==前端交互==
-
-
-
+业务系统A ->坐标集成平台:采集数据接口上报
+坐标集成平台 --> 坐标集成平台:视图，调度上报，API数据封装
+坐标集成平台 ->CDSS厂商SDK: API推送数据采集
+坐标集成平台 <--CDSS厂商SDK:返回结果
+业务系统A <--坐标集成平台:返回结果
 @enduml
