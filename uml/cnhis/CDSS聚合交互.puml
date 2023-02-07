@@ -3,7 +3,7 @@
 title CDSS聚合BS交互
 autonumber
 
-==决策分析前端初始化==
+==决策分析SDK获取厂商信息==
 业务系统A -> 坐标CDSS聚合服务: 集成CDSS聚合
 业务系统A -> 坐标SDK: 发起初始化
 坐标SDK -> 坐标CDSS聚合服务: 请求获取厂商信息
@@ -12,10 +12,14 @@ note right
 end note
 坐标SDK <-- 坐标CDSS聚合服务: 返回获取厂商信息
 note right
-根据应用标识来源，完成初始化，定义全局对象变量
+用RSA解密厂商信息数据，定义全局对象变量
 兼容不同厂商鉴权，一期对接惠每科技
 end note
-坐标SDK -> 坐标SDK:前端引入jssdk，页面初始化
+
+==决策分析SDK初始化==
+业务系统A ->坐标SDK: 切换患者，发起页面初始化
+坐标SDK -> 坐标CDSS聚合服务:发起初始化cdss_init_request
+坐标SDK <-- 坐标CDSS聚合服务:发起页面初始化
 坐标SDK -> CDSS厂商SDK:发起初始化
 坐标SDK <-- CDSS厂商SDK:监听初始化
 业务系统A <-- 坐标SDK:返回初始化信息
