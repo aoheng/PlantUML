@@ -4,8 +4,8 @@ title CDSS聚合BS交互
 autonumber
 
 ==决策分析SDK获取厂商信息==
-业务系统A -> 坐标CDSS聚合服务: 集成CDSS聚合
-业务系统A -> 坐标SDK: 发起初始化
+业务系统A -> 坐标CDSS聚合服务: 集成坐标SDK
+业务系统A -> 坐标SDK: 页面初始化
 坐标SDK -> 坐标CDSS聚合服务: 请求获取厂商信息
 note right
 聚合服务对厂商信息统一管理，包含APPID，密钥等
