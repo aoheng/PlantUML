@@ -36,10 +36,17 @@ note right
 由聚合服务对第三方厂商数据格式统一封装
 end note
 坐标SDK ->CDSS厂商SDK: 发起API请求
+坐标SDK <--CDSS厂商SDK: 返回结果
+业务系统A <- 坐标SDK:返回结果
+
+
+==点击监听回写==
+业务系统A ->坐标SDK: 发起点击事件
+坐标SDK ->CDSS厂商SDK: 发起API请求
 坐标SDK <--CDSS厂商SDK: 监听回写数据
 坐标CDSS聚合服务 <- 坐标SDK:请求解析回写数据格式
 note right
-由聚合服务对第三方厂商数据格式统一解析，返回统一数据格式
+比如：药品id，反查药品类型等信息
 end note
 坐标CDSS聚合服务 --> 坐标SDK:返回统一数据格式
 业务系统A <-- 坐标SDK:返回特定数据格式
