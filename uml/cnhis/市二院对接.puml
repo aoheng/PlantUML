@@ -1,0 +1,22 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+title 市二院药房对接创业流程图
+autonumber
+
+==1.药库新增进货单==
+创业药库 -> 坐标集成平台: 调用新增进货单接口(坐标定义)
+坐标集成平台 -> 坐标集成平台: 组装数据
+坐标iHO <- 坐标集成平台: 新增进货单
+note right
+接口地址:/idrugs/ds/purchase/add
+end note
+坐标iHO --> 坐标集成平台: return 结果
+坐标集成平台 --> 创业药库: return 结果
+
+==2.药房退库单流程==
+坐标iHO -> 坐标集成平台: 埋点触发:药房退库
+坐标集成平台 -> 坐标集成平台: 组装数据
+创业药库 <- 坐标集成平台: 调用药房退库单(创业定义)
+创业药库 --> 坐标集成平台: return 结果
+坐标iHO <-- 坐标集成平台: return 结果
+@enduml
